@@ -1,3 +1,41 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("/fonts/Vazirmatn-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+body {
+  direction: rtl;
+  font-family: "Vazirmatn", sans-serif;
+  @apply bg-background;
+}
+
+/* Autofill styles */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #dde7dd inset !important;
+  -webkit-text-fill-color: #6d4c3d !important;
+}
+
+input:-moz-autofill,
+input:-moz-autofill:hover,
+input:-moz-autofill:focus,
+input:-moz-autofill:active {
+  background-color: #dde7dd !important;
+  color: #6d4c3d !important;
+}
+
+input:-ms-input-autofill,
+input:-ms-input-autofill:hover,
+input:-ms-input-autofill:focus,
+input:-ms-input-autofill:active {
+  background-color: #dde7dd !important;
+  color: #6d4c3d !important;
+}
