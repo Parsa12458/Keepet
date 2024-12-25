@@ -6,7 +6,7 @@ function InputField({ id, label, type = "text" }) {
       </label>
       <input
         type={type}
-        className="bg-transparent w-full rounded border border-brown px-2 py-1.5 text-sm text-brown focus:outline-none"
+        className="w-full rounded border border-brown bg-transparent px-2 py-1.5 text-sm font-medium text-brown focus:outline-none"
       />
     </div>
   );
