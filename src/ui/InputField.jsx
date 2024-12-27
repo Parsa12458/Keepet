@@ -7,6 +7,7 @@ function InputField({ id, label, type = "text" }) {
       <input
         type={type}
         className="w-full rounded border border-brown bg-transparent px-2 py-1.5 text-sm font-medium text-brown focus:outline-none"
+        id={id}
       />
     </div>
   );

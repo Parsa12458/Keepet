@@ -67,3 +67,29 @@ input:-ms-input-autofill:active {
   background-color: #dde7dd !important;
   color: #6d4c3d !important;
 }
+
+/* file upload button */
+input[type="file"] {
+  @apply text-xs leading-5;
+}
+
+input[type="file"]::file-selector-button {
+  @apply ml-1.5 cursor-pointer rounded border border-brown bg-transparent text-xs;
+}
+
+/* Custom checkbox styles */
+.custom-checkbox {
+  @apply h-[18px] w-[18px] cursor-pointer appearance-none rounded-md border-2 border-brown bg-contain bg-center checked:bg-brown checked:bg-[url('/icons/tick-icon-white.svg')] focus:ring-0 disabled:cursor-default disabled:opacity-80;
+}
+
+/* Hide spinners for number inputs */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}

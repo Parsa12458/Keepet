@@ -3,6 +3,7 @@ function Button({
   type = "button",
   variation = "primary",
   additionalStyles = "",
+  onClick,
 }) {
   const primaryStyles = "bg-brown text-white";
   const secondaryStyles = "border border-brown font-medium text-brown";
@@ -11,6 +12,7 @@ function Button({
     <button
       type={type}
       className={`rounded px-5 py-1.5 text-sm ${additionalStyles} ${variation === "primary" ? primaryStyles : ""} ${variation === "secondary" ? secondaryStyles : ""} ${variation === "red" ? redStyles : ""}`}
+      onClick={(e) => onClick?.(e)}
     >
       {children}
     </button>
