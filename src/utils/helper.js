@@ -18,3 +18,18 @@ export function toCamelCase(str) {
     .toLowerCase()
     .replace(/[^a-zA-Z0-9]+(.)/g, (_, chr) => chr.toUpperCase());
 }
+
+export function truncateText(text, numCharacters) {
+  if (text.length <= numCharacters) {
+    return text;
+  }
+
+  const truncated = text.slice(0, numCharacters);
+  const lastSpaceIndex = truncated.lastIndexOf(" ");
+
+  if (lastSpaceIndex === -1) {
+    return truncated + "...";
+  }
+
+  return truncated.slice(0, lastSpaceIndex) + "...";
+}
