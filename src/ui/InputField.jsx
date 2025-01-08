@@ -1,4 +1,4 @@
-function InputField({ id, label, type = "text" }) {
+function InputField({ id, label, type = "text", placeholder = "" }) {
   return (
     <div className="flex flex-col items-start gap-0.5">
       <label htmlFor={id} className="text-xs">
@@ -8,6 +8,7 @@ function InputField({ id, label, type = "text" }) {
         type={type}
         className="w-full rounded border border-brown bg-transparent px-2 py-1.5 text-sm font-medium text-brown focus:outline-none"
         id={id}
+        placeholder={placeholder}
       />
     </div>
   );

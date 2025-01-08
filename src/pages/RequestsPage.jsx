@@ -15,7 +15,7 @@ function RequestsPage() {
             </Button>
           </Modal.Open>
           <Modal.Window name="addRequest">
-            <RequestForm title="مشخصات پت خود را وارد کنید." />
+            <RequestForm title="فرم زیر را تکمیل کنید." />
           </Modal.Window>
         </Modal>
       </div>

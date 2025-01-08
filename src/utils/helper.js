@@ -33,3 +33,8 @@ export function truncateText(text, numCharacters) {
 
   return truncated.slice(0, lastSpaceIndex) + "...";
 }
+
+export const toPersianDate = (date) => {
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  return new Intl.DateTimeFormat("fa-IR", options).format(date);
+};
