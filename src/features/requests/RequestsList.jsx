@@ -3,19 +3,25 @@ import RequestItem from "./RequestItem";
 const requestsData = [
   {
     requestId: 1,
-    requestSelectedPetId: 2,
+    requestSelectedPet: {
+      petId: 2,
+      petName: "ملی",
+    },
     requestLocation: "آزادگان، بلوار امام رضا، اردلان 4، پلاک 111",
     requestStartDate: "16 دی 1403",
-    requestDaysNum: 3,
+    requestEndDate: "19 دی 1403",
     requestDescription: "",
     requestStatus: "inProgress", // inProgress, approved, rejected
   },
   {
     requestId: 2,
-    requestSelectedPetId: 1,
+    requestSelectedPet: {
+      petId: 2,
+      petName: "ملی",
+    },
     requestLocation: "کرج، چهارراه طالقانی، خیابان آزادی، پلاک 12",
     requestStartDate: "18 دی 1403",
-    requestDaysNum: 5,
+    requestEndDate: "22 دی 1403",
     requestDescription: "",
     requestStatus: "approved",
   },

@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import Button from "../../ui/Button";
+import Modal from "../../ui/Modal";
 import { truncateText } from "../../utils/helper";
+import RequestForm from "./RequestForm";
 
 function RequestItem({ request }) {
   const requestStatusStr =
@@ -16,17 +18,16 @@ function RequestItem({ request }) {
       className="flex w-80 flex-col items-center justify-start gap-10 rounded bg-paleGreen p-7"
     >
       <div className="relative h-36 w-48 shrink-0 overflow-hidden rounded border-[10px] border-background outline outline-4 outline-brown">
-        {/* Later we will get the pet information using the database */}
         <img
           src="/images/placeholder-pet2.jpg"
-          alt="ملی"
+          alt={request.requestSelectedPet.petName}
           className="h-full w-full rounded-md object-cover"
         />
         <div className="absolute bottom-0 left-0 right-0 top-0 rounded-md bg-black/50">
           &nbsp;
         </div>
         <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-3xl font-medium text-white">
-          ملی
+          {request.requestSelectedPet.petName}
         </span>
       </div>
 
@@ -50,14 +51,26 @@ function RequestItem({ request }) {
       </div>
 
       <div className="space-y-2">
-        <Button
-          variation="secondary"
-          type="button"
-          additionalStyles="flex w-36 h-9 items-center justify-center gap-2 text-xs"
-        >
-          <img src="/icons/edit-icon.svg" className="w-4" />
-          <span>ویرایش اطلاعات</span>
-        </Button>
+        <Modal>
+          <Modal.Open opens="editPet">
+            <Button
+              variation="secondary"
+              type="button"
+              additionalStyles="flex w-36 h-9 items-center justify-center gap-2 text-xs"
+            >
+              <img src="/icons/edit-icon.svg" className="w-4" />
+              <span>ویرایش اطلاعات</span>
+            </Button>
+          </Modal.Open>
+          <Modal.Window name="editPet">
+            <RequestForm
+              title={`ویرایش درخواست تاریخ ${request.requestStartDate}`}
+              request={request}
+              requestOperation="edit"
+            />
+          </Modal.Window>
+        </Modal>
+
         <Button
           variation="red"
           type="button"

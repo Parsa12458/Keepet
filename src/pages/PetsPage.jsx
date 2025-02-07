@@ -15,7 +15,7 @@ function PetsPage() {
             </Button>
           </Modal.Open>
           <Modal.Window name="addPet">
-            <PetForm title="مشخصات پت خود را وارد کنید." />
+            <PetForm title="مشخصات پت خود را وارد کنید." petOperation="add" />
           </Modal.Window>
         </Modal>
       </div>

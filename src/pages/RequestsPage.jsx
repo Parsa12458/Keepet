@@ -15,7 +15,10 @@ function RequestsPage() {
             </Button>
           </Modal.Open>
           <Modal.Window name="addRequest">
-            <RequestForm title="فرم زیر را تکمیل کنید." />
+            <RequestForm
+              title="فرم زیر را تکمیل کنید."
+              requestOperation="add"
+            />
           </Modal.Window>
         </Modal>
       </div>

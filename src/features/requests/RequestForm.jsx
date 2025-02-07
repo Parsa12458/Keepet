@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useForm } from "react-hook-form";
 import Button from "../../ui/Button";
 import InputField from "../../ui/InputField";
@@ -6,8 +7,16 @@ import InputTextarea from "../../ui/InputTextArea";
 import { toPersianDate } from "../../utils/helper";
 import toast from "react-hot-toast";
 
-function RequestForm({ title }) {
-  const { register, handleSubmit } = useForm();
+function RequestForm({ title, request, requestOperation }) {
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      requestSelectedPet: request?.requestSelectedPet.petName,
+      requestStartDate: request?.requestStartDate,
+      requestEndDate: request?.requestEndDate,
+      requestLocation: request?.requestLocation,
+      requestDescription: request?.requestDescription,
+    },
+  });
 
   function onSubmit(data) {
     console.log(data);
@@ -28,7 +37,7 @@ function RequestForm({ title }) {
         onSubmit={handleSubmit(onSubmit, onError)}
       >
         <InputSelect
-          id="requestSelectedPetId"
+          id="requestSelectedPet"
           label="پت مورد نظر خود را انتخاب کنید*"
           options={["پیکو", "جسی", "ملی"]}
           register={register}
@@ -84,7 +93,9 @@ function RequestForm({ title }) {
             variation="primary"
           >
             <img src="/icons/add-icon.svg" className="w-5" />
-            <span>ثبت درخواست</span>
+            <span>
+              {requestOperation === "add" ? "ثبت درخواست" : "ویرایش درخواست"}
+            </span>
           </Button>
         </div>
       </form>
