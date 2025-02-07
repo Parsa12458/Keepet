@@ -1,4 +1,12 @@
-function InputField({ id, label, type = "text", placeholder = "", accept }) {
+function InputField({
+  id,
+  label,
+  type = "text",
+  placeholder = "",
+  accept,
+  register,
+  validationRules = {},
+}) {
   return (
     <div className="flex flex-col items-start gap-0.5">
       <label htmlFor={id} className="text-xs">
@@ -10,6 +18,7 @@ function InputField({ id, label, type = "text", placeholder = "", accept }) {
         id={id}
         placeholder={placeholder}
         accept={accept ? accept : ""}
+        {...(register && register(id, validationRules))}
       />
     </div>
   );

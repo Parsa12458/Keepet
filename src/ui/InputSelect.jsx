@@ -1,6 +1,6 @@
 import { toCamelCase } from "../utils/helper";
 
-function InputSelect({ id, label, options }) {
+function InputSelect({ id, label, options, register, validationRules }) {
   return (
     <div className="flex flex-col gap-0.5">
       <label htmlFor={id} className="text-xs">
@@ -11,6 +11,7 @@ function InputSelect({ id, label, options }) {
           name={id}
           id={id}
           className={`w-full cursor-pointer appearance-none rounded border border-brown bg-transparent px-2 py-1.5 text-sm font-medium text-brown focus:outline-none`}
+          {...(register && register(id, validationRules))}
         >
           {options.map((option, i) => (
             <option
