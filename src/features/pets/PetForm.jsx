@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useForm } from "react-hook-form";
 import Button from "../../ui/Button";
 import InputCheckbox from "../../ui/InputCheckbox";
@@ -6,8 +7,23 @@ import InputSelect from "../../ui/InputSelect";
 import InputTextarea from "../../ui/InputTextArea";
 import toast from "react-hot-toast";
 
-function PetForm({ title }) {
-  const { register, handleSubmit } = useForm();
+function PetForm({ title, pet, petOperation = "add" }) {
+  // petOperation is either edit or add
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      petType: pet?.petType,
+      petName: pet?.petName,
+      petGender: pet?.petGender,
+      petRace: pet?.petRace,
+      petBirthYear: pet?.petBirthYear,
+      petVaccinationCount: pet?.petVaccinationCount,
+      petDisease: pet?.petDisease,
+      petFeed: pet?.petFeed,
+      petImage: pet?.petImage,
+      petDescription: pet?.petDescription,
+      isPetSterile: pet?.isPetSterile,
+    },
+  });
 
   function onSubmit(data) {
     console.log(data);
@@ -92,7 +108,7 @@ function PetForm({ title }) {
         <InputTextarea id="petDisease" label="بیماری" register={register} />
         <InputTextarea id="petFeed" label="تغذیه" register={register} />
         <InputField
-          id="petWeight"
+          id="petImage"
           label="آپلود عکس پت"
           type="file"
           accept=".png, .jpg, .jpeg"
@@ -110,9 +126,17 @@ function PetForm({ title }) {
             },
           }}
         />
-        <InputTextarea id="petDescription" label="توضیحات" />
+        <InputTextarea
+          id="petDescription"
+          label="توضیحات"
+          register={register}
+        />
         <div className="mt-7 self-start">
-          <InputCheckbox id="isPetSterile" label="عقیم است؟" />
+          <InputCheckbox
+            id="isPetSterile"
+            label="عقیم است؟"
+            register={register}
+          />
         </div>
         <div className="col-span-3 mr-auto mt-6 gap-3">
           <Button
@@ -121,7 +145,7 @@ function PetForm({ title }) {
             variation="primary"
           >
             <img src="/icons/add-icon.svg" className="w-5" />
-            <span>افزودن پت</span>
+            <span>{petOperation === "add" ? "افزودن پت" : "ویرایش پت"}</span>
           </Button>
         </div>
       </form>

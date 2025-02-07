@@ -1,5 +1,3 @@
-import { toCamelCase } from "../utils/helper";
-
 function InputSelect({ id, label, options, register, validationRules }) {
   return (
     <div className="flex flex-col gap-0.5">
@@ -14,11 +12,7 @@ function InputSelect({ id, label, options, register, validationRules }) {
           {...(register && register(id, validationRules))}
         >
           {options.map((option, i) => (
-            <option
-              value={toCamelCase(option)}
-              key={i}
-              className="bg-background"
-            >
+            <option value={option} key={i} className="bg-background">
               {option}
             </option>
           ))}
