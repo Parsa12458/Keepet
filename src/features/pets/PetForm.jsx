@@ -18,7 +18,6 @@ function PetForm({ title }) {
         <InputSelect id="petGender" label="جنس پت" options={["نر", "ماده"]} />
         <InputField id="petRace" label="نژاد پت" type="text" />
         <InputField id="petBirthYear" label="سال تولد پت" type="number" />
-        <InputField id="petWeight" label="وزن پت" type="number" />
         <InputField
           id="petVaccinationCount"
           label="تعداد واکسناسیون پت"
@@ -26,9 +25,14 @@ function PetForm({ title }) {
         />
         <InputTextarea id="petDisease" label="بیماری" />
         <InputTextarea id="petFeed" label="تغذیه" />
-        <InputField id="petWeight" label="آپلود عکس پت" type="file" />
+        <InputField
+          id="petWeight"
+          label="آپلود عکس پت"
+          type="file"
+          accept=".png, .jpg, .jpeg"
+        />
         <InputTextarea id="petDescription" label="توضیحات" />
-        <div className="mt-5 self-center">
+        <div className="mt-7 self-start">
           <InputCheckbox id="isPetSterile" label="عقیم است؟" />
         </div>
         <div className="col-span-3 mr-auto mt-6 gap-3">

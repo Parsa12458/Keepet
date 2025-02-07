@@ -1,5 +1,5 @@
 import Button from "../../ui/Button";
-import { convertGramsToKilograms, calculateAge } from "../../utils/helper";
+import { calculateAge } from "../../utils/helper";
 
 const petsData = [
   {
@@ -11,7 +11,6 @@ const petsData = [
     petRace: "شپرد استرالیایی",
     petGender: "ماده",
     isPetSterile: true,
-    petWeight: 5000,
     petDisease:
       "جسی دچار حساسیت های پوستی شده است و نیاز به مراقبت های ویژه دارد.",
     petDescription:
@@ -26,7 +25,6 @@ const petsData = [
     petRace: "پرشین",
     petGender: "نر",
     isPetSterile: false,
-    petWeight: 3000,
     petDisease:
       "ملی به کم کاری تیروئید مبتلا است و نیاز به مصرف داروهای منظم دارد.",
     petDescription:
@@ -41,7 +39,6 @@ const petsData = [
     petRace: "ماکائو",
     petGender: "ماده",
     isPetSterile: false,
-    petWeight: 500,
     petDisease:
       "پیکو در گذشته دچار شکستگی بال شده و بهبودی یافته است، اما نیاز به مراقبت های ویژه دارد.",
     petDescription:
@@ -71,15 +68,11 @@ function PetsList() {
             <div>
               <span>نژاد: </span> <span>{pet.petRace}</span>
             </div>
-            <div className="col-start-3 col-end-4 row-start-2 row-end-4">
+            <div className="col-start-3 col-end-4 row-start-1 row-end-4">
               <span>بیماری: </span> <span>{pet.petDisease}</span>
             </div>
             <div className="col-start-4 col-end-5 row-start-1 row-end-4">
               <span>توضیحات: </span> <span>{pet.petDescription}</span>
-            </div>
-            <div>
-              <span>وزن: </span>{" "}
-              <span>{convertGramsToKilograms(pet.petWeight)}</span>
             </div>
             <div>
               <span>اسم: </span> <span>{pet.petName}</span>

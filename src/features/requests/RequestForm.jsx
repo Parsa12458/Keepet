@@ -20,7 +20,12 @@ function RequestForm({ title }) {
           type="text"
           placeholder={`مثال: ${toPersianDate(new Date())}`}
         />
-        <InputField id="requestDaysNum" label="تعداد روز" type="number" />
+        <InputField
+          id="requestEndDate"
+          label="تاریخ پایان درخواست"
+          type="text"
+          placeholder={`مثال: ${toPersianDate(new Date().setDate(new Date().getDate() + 3))}`}
+        />
         <InputTextarea id="requestLocation" label="مکان" />
         <InputTextarea id="requestDescription" label="توضیحات" />
 
@@ -31,7 +36,7 @@ function RequestForm({ title }) {
             variation="primary"
           >
             <img src="/icons/add-icon.svg" className="w-5" />
-            <span>افزودن پت</span>
+            <span>ثبت درخواست</span>
           </Button>
         </div>
       </form>
