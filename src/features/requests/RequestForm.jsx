@@ -6,8 +6,11 @@ import InputSelect from "../../ui/InputSelect";
 import InputTextarea from "../../ui/InputTextArea";
 import { toPersianDate } from "../../utils/helper";
 import toast from "react-hot-toast";
+import { useDarkMode } from "../../contexts/DarkModeContext";
 
 function RequestForm({ title, request, requestOperation }) {
+  const { isDarkMode } = useDarkMode();
+
   const { register, handleSubmit } = useForm({
     defaultValues: {
       requestSelectedPet: request?.requestSelectedPet.petName,
@@ -30,7 +33,7 @@ function RequestForm({ title, request, requestOperation }) {
   }
 
   return (
-    <div className="text-brown">
+    <div className="text-brown dark:text-background">
       <h2 className="mb-7 text-2xl font-bold">{title}</h2>
       <form
         className="grid grid-cols-3 items-start gap-x-10 gap-y-5"
@@ -92,7 +95,11 @@ function RequestForm({ title, request, requestOperation }) {
             type="submit"
             variation="primary"
           >
-            <img src="/icons/add-icon.svg" className="w-5" />
+            {isDarkMode ? (
+              <img src="/icons/add-dark-icon.svg" className="w-5" />
+            ) : (
+              <img src="/icons/add-icon.svg" className="w-5" />
+            )}
             <span>
               {requestOperation === "add" ? "ثبت درخواست" : "ویرایش درخواست"}
             </span>

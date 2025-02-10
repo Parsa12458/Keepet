@@ -1,9 +1,16 @@
 import { Link } from "react-router-dom";
+import { useDarkMode } from "../contexts/DarkModeContext";
 
 function Logo() {
+  const { isDarkMode } = useDarkMode();
+
   return (
     <Link to="/">
-      <img src="/icons/logo.svg" alt="کیپت" className="w-24" />
+      {isDarkMode ? (
+        <img src="/icons/logo-dark.svg" alt="کیپت" className="w-24" />
+      ) : (
+        <img src="/icons/logo.svg" alt="کیپت" className="w-24" />
+      )}
     </Link>
   );
 }

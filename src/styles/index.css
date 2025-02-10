@@ -40,7 +40,7 @@
 body {
   direction: rtl;
   font-family: "Vazirmatn", sans-serif;
-  @apply bg-background;
+  @apply bg-background dark:bg-darkBrown;
 }
 
 /* Autofill styles */
@@ -68,18 +68,42 @@ input:-ms-input-autofill:active {
   color: #6d4c3d !important;
 }
 
+.dark input:-webkit-autofill,
+.dark input:-webkit-autofill:hover,
+.dark input:-webkit-autofill:focus,
+.dark input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #50382d inset !important;
+  -webkit-text-fill-color: #dde7dd !important;
+}
+
+.dark input:-moz-autofill,
+.dark input:-moz-autofill:hover,
+.dark input:-moz-autofill:focus,
+.dark input:-moz-autofill:active {
+  background-color: #50382d !important;
+  color: #dde7dd !important;
+}
+
+.dark input:-ms-input-autofill,
+.dark input:-ms-input-autofill:hover,
+.dark input:-ms-input-autofill:focus,
+.dark input:-ms-input-autofill:active {
+  background-color: #50382d !important;
+  color: #dde7dd !important;
+}
+
 /* file upload button */
 input[type="file"] {
   @apply text-xs leading-5;
 }
 
 input[type="file"]::file-selector-button {
-  @apply ml-1.5 cursor-pointer rounded border border-brown bg-transparent text-xs;
+  @apply ml-1.5 cursor-pointer rounded border border-brown bg-transparent text-xs dark:border-background dark:text-background;
 }
 
 /* Custom checkbox styles */
 .custom-checkbox {
-  @apply h-[18px] w-[18px] cursor-pointer appearance-none rounded-md border-2 border-brown bg-contain bg-center checked:bg-brown checked:bg-[url('/icons/tick-icon-white.svg')] focus:ring-0 disabled:cursor-default disabled:opacity-80;
+  @apply h-[18px] w-[18px] cursor-pointer appearance-none rounded-md border-2 border-brown bg-contain bg-center checked:bg-brown checked:bg-[url('/icons/tick-icon-white.svg')] focus:ring-0 disabled:cursor-default disabled:opacity-80 dark:border-background dark:checked:bg-background dark:checked:bg-[url('/icons/tick-icon.svg')];
 }
 
 /* Hide spinners for number inputs */

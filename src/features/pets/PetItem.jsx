@@ -1,14 +1,17 @@
 /* eslint-disable react/prop-types */
+import { useDarkMode } from "../../contexts/DarkModeContext";
 import Button from "../../ui/Button";
 import Modal from "../../ui/Modal";
 import { calculateAge } from "../../utils/helper";
 import PetForm from "./PetForm";
 
 function PetItem({ pet }) {
+  const { isDarkMode } = useDarkMode();
+
   return (
     <div
       key={pet.petId}
-      className="flex items-center justify-start gap-10 rounded bg-paleGreen p-7"
+      className="dark:bg-chocolateBrown flex items-center justify-start gap-10 rounded bg-paleGreen p-7"
     >
       <div className="h-36 w-56 shrink-0 overflow-hidden rounded">
         <img
@@ -17,7 +20,7 @@ function PetItem({ pet }) {
           className="h-full w-full object-cover"
         />
       </div>
-      <div className="grid gap-x-8 gap-y-4 text-sm font-medium text-brown">
+      <div className="grid gap-x-8 gap-y-4 text-sm font-medium text-brown dark:font-normal dark:text-background">
         <div>
           <span>نوع: </span> <span>{pet.petType}</span>
         </div>
@@ -54,7 +57,11 @@ function PetItem({ pet }) {
           type="button"
           additionalStyles="flex w-36 h-9 items-center justify-center gap-2 text-xs"
         >
-          <img src="/icons/add-envelope-icon.svg" className="w-4" />
+          {isDarkMode ? (
+            <img src="/icons/add-envelope-dark-icon.svg" className="w-4" />
+          ) : (
+            <img src="/icons/add-envelope-icon.svg" className="w-4" />
+          )}
           <span>ارسال درخواست</span>
         </Button>
         <Modal>
@@ -64,7 +71,11 @@ function PetItem({ pet }) {
               type="button"
               additionalStyles="flex w-36 h-9 items-center justify-center gap-2 text-xs"
             >
-              <img src="/icons/edit-icon.svg" className="w-4" />
+              {isDarkMode ? (
+                <img src="/icons/edit-dark-icon.svg" className="w-4" />
+              ) : (
+                <img src="/icons/edit-icon.svg" className="w-4" />
+              )}
               <span>ویرایش اطلاعات</span>
             </Button>
           </Modal.Open>

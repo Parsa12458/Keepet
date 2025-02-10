@@ -72,12 +72,12 @@ function Window({ children, name }) {
 
   return createPortal(
     <div
-      className={`fixed inset-0 z-50 h-screen w-full bg-black/50 backdrop-blur-[2px] ${show ? "block" : "hidden"} ${transitionClass}`}
+      className={`fixed inset-0 z-50 h-screen w-full bg-black/50 backdrop-blur-[2px] dark:bg-black/65 ${show ? "block" : "hidden"} ${transitionClass}`}
       onTransitionEnd={handleTransitionEnd}
     >
       <div
         ref={ref}
-        className="fixed left-1/2 top-1/2 max-h-[90%] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-3xl bg-background px-16 py-12"
+        className="fixed left-1/2 top-1/2 max-h-[90%] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-3xl bg-background px-16 py-12 dark:bg-darkBrown dark:text-background"
       >
         <button
           onClick={close}

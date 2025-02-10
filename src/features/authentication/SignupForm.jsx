@@ -20,7 +20,7 @@ function SignupForm() {
 
   return (
     <div className="flex w-1/2 max-w-[800px] overflow-hidden rounded">
-      <div className="w-1/2 bg-paleGreen px-10 py-12 text-brown">
+      <div className="dark:bg-chocolateBrown w-1/2 bg-paleGreen px-10 py-12 text-brown dark:text-background">
         <h1 className="text-center text-3xl font-bold">ثبت نام</h1>
         <form
           className="mt-8 flex flex-col gap-5"
@@ -88,7 +88,7 @@ function SignupForm() {
           alt="Cat background image"
           className="absolute inset-0 h-full w-full object-cover"
         />
-        <div className="absolute inset-0 h-full w-full bg-brown/80"></div>
+        <div className="dark:bg-chocolateBrown/80 absolute inset-0 h-full w-full bg-brown/80"></div>
         <p className="relative text-white">
           اگر حساب کاربری دارید
           <Link

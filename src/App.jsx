@@ -6,6 +6,7 @@ import RequestsPage from "./pages/RequestsPage";
 import PageNotFound from "./ui/PageNotFound";
 import AppLayout from "./ui/AppLayout";
 import { Toaster } from "react-hot-toast";
+import { DarkModeProvider } from "./contexts/DarkModeContext";
 
 function App() {
   return (
@@ -15,19 +16,22 @@ function App() {
         reverseOrder={true}
         containerClassName="mt-2"
         toastOptions={{
-          className: "!pr-4 !max-w-full",
+          className:
+            "!pr-4 !max-w-full dark:!bg-chocolateBrown dark:!text-background",
         }}
       />
-      <Routes>
-        <Route path="/" element={<Navigate to="/signup" />} index />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route element={<AppLayout />}>
-          <Route path="/pets" element={<PetsPage />} />
-          <Route path="/requests" element={<RequestsPage />} />
-        </Route>
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
+      <DarkModeProvider>
+        <Routes>
+          <Route path="/" element={<Navigate to="/signup" />} index />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route element={<AppLayout />}>
+            <Route path="/pets" element={<PetsPage />} />
+            <Route path="/requests" element={<RequestsPage />} />
+          </Route>
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </DarkModeProvider>
     </BrowserRouter>
   );
 }

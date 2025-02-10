@@ -6,8 +6,11 @@ import InputField from "../../ui/InputField";
 import InputSelect from "../../ui/InputSelect";
 import InputTextarea from "../../ui/InputTextArea";
 import toast from "react-hot-toast";
+import { useDarkMode } from "../../contexts/DarkModeContext";
 
 function PetForm({ title, pet, petOperation = "add" }) {
+  const { isDarkMode } = useDarkMode();
+
   // petOperation is either edit or add
   const { register, handleSubmit } = useForm({
     defaultValues: {
@@ -37,7 +40,7 @@ function PetForm({ title, pet, petOperation = "add" }) {
   }
 
   return (
-    <div className="text-brown">
+    <div className="text-brown dark:text-background">
       <h2 className="mb-7 text-2xl font-bold">{title}</h2>
       <form
         className="grid grid-cols-3 items-start gap-x-10 gap-y-5"
@@ -144,7 +147,11 @@ function PetForm({ title, pet, petOperation = "add" }) {
             type="submit"
             variation="primary"
           >
-            <img src="/icons/add-icon.svg" className="w-5" />
+            {isDarkMode ? (
+              <img src="/icons/add-dark-icon.svg" className="w-5" />
+            ) : (
+              <img src="/icons/add-icon.svg" className="w-5" />
+            )}
             <span>{petOperation === "add" ? "افزودن پت" : "ویرایش پت"}</span>
           </Button>
         </div>

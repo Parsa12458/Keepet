@@ -5,9 +5,11 @@ function Button({
   additionalStyles = "",
   onClick,
 }) {
-  const primaryStyles = "bg-brown text-white";
-  const secondaryStyles = "border border-brown font-medium text-brown";
-  const redStyles = "border border-red font-medium text-red";
+  const primaryStyles =
+    "bg-brown text-white dark:bg-paleGreen dark:text-chocolateBrown dark:font-medium";
+  const secondaryStyles =
+    "border border-brown font-medium text-brown dark:border-background dark:text-background dark:font-normal";
+  const redStyles = "border border-red font-medium text-red dark:font-semibold";
   return (
     <button
       type={type}
