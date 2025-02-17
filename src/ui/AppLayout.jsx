@@ -5,7 +5,7 @@ function AppLayout() {
   return (
     <div>
       <AppHeader />
-      <div className="dark:bg-darkBrown mx-auto max-w-screen-2xl bg-background px-20 pb-12 pt-4">
+      <div className="mx-auto max-w-7xl bg-background px-20 pb-12 pt-4 sm:px-10 dark:bg-darkBrown">
         <Outlet />
       </div>
     </div>

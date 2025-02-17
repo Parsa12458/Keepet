@@ -18,9 +18,9 @@ function RequestItem({ request }) {
   return (
     <div
       key={request.requestId}
-      className="flex w-80 flex-col items-center justify-start gap-10 rounded bg-paleGreen p-7 dark:bg-chocolateBrown dark:text-background"
+      className="flex w-80 flex-col items-center justify-start gap-10 rounded bg-paleGreen p-7 sm:w-full sm:max-w-72 dark:bg-chocolateBrown dark:text-background"
     >
-      <div className="relative h-36 w-48 shrink-0 overflow-hidden rounded border-[10px] border-background outline outline-[6px] outline-brown">
+      <div className="relative h-36 w-48 shrink-0 overflow-hidden rounded border-[10px] border-background outline outline-[6px] outline-brown sm:h-32 sm:w-44">
         <img
           src="/images/placeholder-pet2.jpg"
           alt={request.requestSelectedPet.petName}
@@ -35,38 +35,32 @@ function RequestItem({ request }) {
       </div>
 
       <div className="space-y-4 text-sm font-medium text-brown dark:text-background">
-        <div className="flex items-center gap-1">
+        <div className="flex items-start gap-1">
           {isDarkMode ? (
-            <img src="/icons/location-dark-icon.svg" className="-mt-0.5 w-4" />
+            <img src="/icons/location-dark-icon.svg" className="w-4" />
           ) : (
-            <img src="/icons/location-icon.svg" className="-mt-0.5 w-4" />
+            <img src="/icons/location-icon.svg" className="w-4" />
           )}
           <span>مکان: {truncateText(request.requestLocation, 30)}</span>
         </div>
-        <div className="flex items-center gap-1">
+        <div className="flex items-start gap-1">
           {isDarkMode ? (
-            <img
-              src="/icons/calendar-range-dark-icon.svg"
-              className="-mt-0.5 w-5"
-            />
+            <img src="/icons/calendar-range-dark-icon.svg" className="w-5" />
           ) : (
-            <img src="/icons/calendar-range-icon.svg" className="-mt-0.5 w-5" />
+            <img src="/icons/calendar-range-icon.svg" className="w-5" />
           )}
           <span>تاریخ شروع: {request.requestStartDate}</span>
         </div>
-        <div className="flex items-center gap-1">
+        <div className="flex items-start gap-1">
           {isDarkMode ? (
-            <img
-              src="/icons/calendar-range-dark-icon.svg"
-              className="-mt-0.5 w-5"
-            />
+            <img src="/icons/calendar-range-dark-icon.svg" className="w-5" />
           ) : (
-            <img src="/icons/calendar-range-icon.svg" className="-mt-0.5 w-5" />
+            <img src="/icons/calendar-range-icon.svg" className="w-5" />
           )}
           <span>تاریخ پایان: {request.requestEndDate}</span>
         </div>
-        <div className="flex items-center gap-1.5">
-          <span className="h-4 w-4 rounded-full bg-brown dark:bg-background"></span>
+        <div className="flex items-start gap-1.5">
+          <span className="mt-0.5 h-4 w-4 rounded-full bg-brown dark:bg-background"></span>
           <span>وضعیت درخواست: {requestStatusStr}</span>
         </div>
       </div>

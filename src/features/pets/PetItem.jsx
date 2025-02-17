@@ -11,7 +11,7 @@ function PetItem({ pet }) {
   return (
     <div
       key={pet.petId}
-      className="dark:bg-chocolateBrown flex items-center justify-start gap-10 rounded bg-paleGreen p-7"
+      className="flex items-center justify-start gap-10 rounded bg-paleGreen p-7 lg:max-w-72 lg:flex-col dark:bg-chocolateBrown"
     >
       <div className="h-36 w-56 shrink-0 overflow-hidden rounded">
         <img
@@ -20,17 +20,17 @@ function PetItem({ pet }) {
           className="h-full w-full object-cover"
         />
       </div>
-      <div className="grid gap-x-8 gap-y-4 text-sm font-medium text-brown dark:font-normal dark:text-background">
+      <div className="grid grid-cols-4 gap-x-8 text-sm font-medium text-brown lg:grid-cols-2 lg:gap-y-4 sm:gap-x-0 dark:font-normal dark:text-background">
         <div>
           <span>نوع: </span> <span>{pet.petType}</span>
         </div>
         <div>
           <span>نژاد: </span> <span>{pet.petRace}</span>
         </div>
-        <div className="col-start-3 col-end-4 row-start-1 row-end-4">
+        <div className="col-start-3 col-end-4 row-start-1 row-end-4 lg:col-start-1 lg:col-end-3 lg:row-start-5 lg:row-end-6">
           <span>بیماری: </span> <span>{pet.petDisease}</span>
         </div>
-        <div className="col-start-4 col-end-5 row-start-1 row-end-4">
+        <div className="col-start-4 col-end-5 row-start-1 row-end-4 lg:col-start-1 lg:col-end-3 lg:row-auto lg:row-start-6 lg:row-end-7">
           <span>توضیحات: </span> <span>{pet.petDescription}</span>
         </div>
         <div>
@@ -51,7 +51,7 @@ function PetItem({ pet }) {
           )}
         </div>
       </div>
-      <div className="flex flex-col items-center justify-center gap-2">
+      <div className="flex flex-col items-center justify-center gap-2 lg:mt-auto">
         <Button
           variation="primary"
           type="button"

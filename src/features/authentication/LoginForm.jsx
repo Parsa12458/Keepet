@@ -19,14 +19,14 @@ function LoginForm() {
   }
 
   return (
-    <div className="flex w-1/2 max-w-[800px] overflow-hidden rounded">
-      <div className="relative flex w-1/2 items-center justify-center px-6 text-center text-3xl font-normal">
+    <div className="flex w-1/2 max-w-[800px] overflow-hidden rounded md:max-w-md md:flex-col-reverse lg:w-4/5">
+      <div className="relative flex w-1/2 items-center justify-center px-6 text-center text-3xl font-normal sm:text-2xl md:w-full md:py-10">
         <img
           src="/images/cat-looking-outside.jpg"
           alt="Cat background image"
-          className="absolute inset-0 h-full w-full object-cover object-right"
+          className="absolute inset-0 h-full w-full object-cover object-right md:object-[0_-42vw]"
         />
-        <div className="dark:bg-chocolateBrown/80 absolute inset-0 h-full w-full bg-brown/80"></div>
+        <div className="absolute inset-0 h-full w-full bg-brown/80 dark:bg-chocolateBrown/80"></div>
         <p className="relative text-white">
           حساب کاربری ندارید؟
           <Link
@@ -37,8 +37,8 @@ function LoginForm() {
           </Link>
         </p>
       </div>
-      <div className="dark:bg-chocolateBrown w-1/2 bg-paleGreen px-10 py-12 text-brown dark:text-background">
-        <h1 className="text-center text-3xl font-bold">ورود</h1>
+      <div className="w-1/2 bg-paleGreen px-10 py-12 text-brown sm:px-8 sm:pt-8 md:w-full dark:bg-chocolateBrown dark:text-background">
+        <h1 className="text-center text-3xl font-bold sm:text-2xl">ورود</h1>
         <form
           className="mt-8 flex flex-col gap-5"
           onSubmit={handleSubmit(onSubmit, onError)}

@@ -77,7 +77,7 @@ function Window({ children, name }) {
     >
       <div
         ref={ref}
-        className="fixed left-1/2 top-1/2 max-h-[90%] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-3xl bg-background px-16 py-12 dark:bg-darkBrown dark:text-background"
+        className="fixed left-1/2 top-1/2 max-h-[90%] w-11/12 max-w-3xl -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-3xl bg-background px-16 py-12 sm:px-8 dark:bg-darkBrown dark:text-background"
       >
         <button
           onClick={close}

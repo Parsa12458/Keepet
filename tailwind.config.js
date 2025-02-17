@@ -15,6 +15,12 @@ export default {
         red: "#B82828",
       },
     },
+
+    screens: {
+      lg: { max: "1250px" },
+      md: { max: "700px" },
+      sm: { max: "450px" },
+    },
   },
   plugins: [daisyui],
   daisyui: {

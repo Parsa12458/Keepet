@@ -34,14 +34,14 @@ function RequestForm({ title, request, requestOperation }) {
 
   return (
     <div className="text-brown dark:text-background">
-      <h2 className="mb-7 text-2xl font-bold">{title}</h2>
+      <h2 className="mb-7 text-2xl font-bold sm:text-xl">{title}</h2>
       <form
-        className="grid grid-cols-3 items-start gap-x-10 gap-y-5"
+        className="grid grid-cols-3 items-start gap-x-10 gap-y-5 md:grid-cols-2 md:gap-x-5 sm:mx-auto sm:max-w-64 sm:grid-cols-1"
         onSubmit={handleSubmit(onSubmit, onError)}
       >
         <InputSelect
           id="requestSelectedPet"
-          label="پت مورد نظر خود را انتخاب کنید*"
+          label="پت خود را انتخاب کنید*"
           options={["پیکو", "جسی", "ملی"]}
           register={register}
         />
@@ -89,9 +89,9 @@ function RequestForm({ title, request, requestOperation }) {
           register={register}
         />
 
-        <div className="col-span-3 mr-auto mt-6 gap-3">
+        <div className="col-span-3 mr-auto mt-6 gap-3 md:col-span-2 sm:col-span-1">
           <Button
-            additionalStyles="flex items-center justify-center gap-2 py-2.5 px-5"
+            additionalStyles="flex items-center justify-center gap-2 py-2.5 sm:py-1.5"
             type="submit"
             variation="primary"
           >

@@ -13,7 +13,7 @@ function Button({
   return (
     <button
       type={type}
-      className={`rounded px-5 py-1.5 text-sm ${additionalStyles} ${variation === "primary" ? primaryStyles : ""} ${variation === "secondary" ? secondaryStyles : ""} ${variation === "red" ? redStyles : ""}`}
+      className={`rounded px-5 py-1.5 text-sm sm:text-xs ${additionalStyles} ${variation === "primary" ? primaryStyles : ""} ${variation === "secondary" ? secondaryStyles : ""} ${variation === "red" ? redStyles : ""}`}
       onClick={(e) => onClick?.(e)}
     >
       {children}

@@ -6,7 +6,7 @@ function Header() {
   const { toggleDarkMode, isDarkMode } = useDarkMode();
 
   return (
-    <div className="flex items-center justify-between px-12 py-6">
+    <div className="flex items-center justify-between px-12 py-6 sm:mb-2 lg:mb-6">
       <Logo />
       <IconButton onClick={toggleDarkMode}>
         {isDarkMode ? (

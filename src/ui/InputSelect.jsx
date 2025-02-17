@@ -11,7 +11,7 @@ function InputSelect({ id, label, options, register, validationRules }) {
         <select
           name={id}
           id={id}
-          className={`w-full cursor-pointer appearance-none rounded border border-brown bg-transparent px-2 py-1.5 text-sm font-medium text-brown focus:outline-none dark:border-background dark:text-background`}
+          className={`w-full cursor-pointer appearance-none rounded border border-brown bg-transparent px-2 py-1.5 text-sm font-medium text-brown focus:outline-none sm:py-1 dark:border-background dark:text-background`}
           {...(register && register(id, validationRules))}
         >
           {options.map((option, i) => (

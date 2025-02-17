@@ -19,9 +19,9 @@ function SignupForm() {
   }
 
   return (
-    <div className="flex w-1/2 max-w-[800px] overflow-hidden rounded">
-      <div className="dark:bg-chocolateBrown w-1/2 bg-paleGreen px-10 py-12 text-brown dark:text-background">
-        <h1 className="text-center text-3xl font-bold">ثبت نام</h1>
+    <div className="flex w-1/2 max-w-[800px] overflow-hidden rounded md:max-w-md md:flex-col lg:w-4/5">
+      <div className="w-1/2 bg-paleGreen px-10 py-12 text-brown sm:px-8 sm:pt-8 md:w-full dark:bg-chocolateBrown dark:text-background">
+        <h1 className="text-center text-3xl font-bold sm:text-2xl">ثبت نام</h1>
         <form
           className="mt-8 flex flex-col gap-5"
           onSubmit={handleSubmit(onSubmit, onError)}
@@ -82,13 +82,13 @@ function SignupForm() {
           </Button>
         </form>
       </div>
-      <div className="relative flex w-1/2 items-center justify-center px-6 text-center text-3xl font-normal">
+      <div className="relative flex w-1/2 items-center justify-center px-6 text-center text-3xl font-normal sm:text-2xl md:w-full md:py-10">
         <img
           src="/images/blackcat-yellow-chair.jpg"
           alt="Cat background image"
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover md:object-[0_-55vw]"
         />
-        <div className="dark:bg-chocolateBrown/80 absolute inset-0 h-full w-full bg-brown/80"></div>
+        <div className="absolute inset-0 h-full w-full bg-brown/80 dark:bg-chocolateBrown/80"></div>
         <p className="relative text-white">
           اگر حساب کاربری دارید
           <Link

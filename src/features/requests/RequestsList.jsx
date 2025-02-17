@@ -25,11 +25,35 @@ const requestsData = [
     requestDescription: "",
     requestStatus: "approved",
   },
+  {
+    requestId: 2,
+    requestSelectedPet: {
+      petId: 2,
+      petName: "ملی",
+    },
+    requestLocation: "کرج، چهارراه طالقانی، خیابان آزادی، پلاک 12",
+    requestStartDate: "18 دی 1403",
+    requestEndDate: "22 دی 1403",
+    requestDescription: "",
+    requestStatus: "approved",
+  },
+  {
+    requestId: 2,
+    requestSelectedPet: {
+      petId: 2,
+      petName: "ملی",
+    },
+    requestLocation: "کرج، چهارراه طالقانی، خیابان آزادی، پلاک 12",
+    requestStartDate: "18 دی 1403",
+    requestEndDate: "22 دی 1403",
+    requestDescription: "",
+    requestStatus: "approved",
+  },
 ];
 
 function RequestsList() {
   return (
-    <div className="mt-10 flex flex-wrap gap-8">
+    <div className="mt-10 flex flex-wrap gap-8 md:justify-center">
       {requestsData.map((request) => (
         <RequestItem request={request} key={request.requestId} />
       ))}

@@ -19,9 +19,11 @@ function EditUserForm() {
 
   return (
     <div className="text-brown dark:text-background">
-      <h2 className="mb-7 text-2xl font-bold">ویرایش اطلاعات کاربری</h2>
+      <h2 className="mb-7 text-2xl font-bold sm:text-xl">
+        ویرایش اطلاعات کاربری
+      </h2>
       <form
-        className="grid grid-cols-2 gap-x-10 gap-y-5"
+        className="grid grid-cols-2 gap-x-10 gap-y-5 md:gap-x-5 sm:mx-auto sm:max-w-64 sm:grid-cols-1"
         onSubmit={handleSubmit(onSubmit, onError)}
       >
         <InputField
@@ -71,7 +73,7 @@ function EditUserForm() {
             },
           }}
         />
-        <div className="col-span-2 mr-auto mt-6 gap-3">
+        <div className="col-span-2 mr-auto mt-6 gap-3 sm:col-span-1">
           <Button type="submit" variation="primary" additionalStyles="!px-10">
             تایید
           </Button>

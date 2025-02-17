@@ -47,7 +47,7 @@ const petsData = [
 
 function PetsList() {
   return (
-    <div className="mt-10 flex flex-col justify-center gap-8">
+    <div className="mt-10 flex flex-col gap-8 lg:flex-row lg:flex-wrap md:justify-center">
       {petsData.map((pet) => (
         <PetItem pet={pet} key={pet.petId} />
       ))}
