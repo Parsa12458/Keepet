@@ -3,12 +3,14 @@ import Button from "../../ui/Button";
 import InputField from "../../ui/InputField";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useSignup } from "./useSignup";
 
 function SignupForm() {
   const { register, handleSubmit } = useForm();
+  const { signup, isLoading } = useSignup();
 
-  function onSubmit(data) {
-    console.log(data);
+  async function onSubmit({ fullName, email, phoneNumber, password }) {
+    signup({ fullName, email, phoneNumber, password });
   }
 
   function onError(errors) {
@@ -19,8 +21,8 @@ function SignupForm() {
   }
 
   return (
-    <div className="flex w-1/2 max-w-[800px] overflow-hidden rounded md:max-w-md md:flex-col lg:w-4/5">
-      <div className="w-1/2 bg-paleGreen px-10 py-12 text-brown sm:px-8 sm:pt-8 md:w-full dark:bg-chocolateBrown dark:text-background">
+    <div className="flex w-1/2 max-w-[800px] overflow-hidden rounded lg:w-4/5 md:max-w-md md:flex-col">
+      <div className="w-1/2 bg-paleGreen px-10 py-12 text-brown md:w-full sm:px-8 sm:pt-8 dark:bg-chocolateBrown dark:text-background">
         <h1 className="text-center text-3xl font-bold sm:text-2xl">ثبت نام</h1>
         <form
           className="mt-8 flex flex-col gap-5"
@@ -34,19 +36,6 @@ function SignupForm() {
             validationRules={{ required: "نام و نام خانوادگی را وارد کنید" }}
           />
           <InputField
-            id="email"
-            label="ایمیل"
-            type="email"
-            register={register}
-            validationRules={{
-              required: "ایمیل خود را وارد کنید",
-              pattern: {
-                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                message: "ایمیل خود را درست وارد کنید",
-              },
-            }}
-          />
-          <InputField
             id="phoneNumber"
             label="شماره تلفن"
             type="tel"
@@ -57,6 +46,19 @@ function SignupForm() {
               pattern: {
                 value: /^09\d{9}$/,
                 message: "شماره تلفن خود را درست وارد کنید",
+              },
+            }}
+          />
+          <InputField
+            id="email"
+            label="ایمیل"
+            type="email"
+            register={register}
+            validationRules={{
+              required: "ایمیل خود را وارد کنید",
+              pattern: {
+                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                message: "ایمیل خود را درست وارد کنید",
               },
             }}
           />
@@ -77,12 +79,13 @@ function SignupForm() {
             type="submit"
             variation="primary"
             additionalStyles="w-full mt-3"
+            isLoading={isLoading}
           >
             تایید
           </Button>
         </form>
       </div>
-      <div className="relative flex w-1/2 items-center justify-center px-6 text-center text-3xl font-normal sm:text-2xl md:w-full md:py-10">
+      <div className="relative flex w-1/2 items-center justify-center px-6 text-center text-3xl font-normal md:w-full md:py-10 sm:text-2xl">
         <img
           src="/images/blackcat-yellow-chair.jpg"
           alt="Cat background image"

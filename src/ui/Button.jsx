@@ -4,6 +4,7 @@ function Button({
   variation = "primary",
   additionalStyles = "",
   onClick,
+  isLoading = false,
 }) {
   const primaryStyles =
     "bg-brown text-white dark:bg-paleGreen dark:text-chocolateBrown dark:font-medium";
@@ -13,10 +14,12 @@ function Button({
   return (
     <button
       type={type}
-      className={`rounded px-5 py-1.5 text-sm sm:text-xs ${additionalStyles} ${variation === "primary" ? primaryStyles : ""} ${variation === "secondary" ? secondaryStyles : ""} ${variation === "red" ? redStyles : ""}`}
+      className={`flex items-center justify-center gap-2 rounded px-5 py-1.5 text-sm sm:text-xs ${additionalStyles} ${variation === "primary" ? primaryStyles : ""} ${variation === "secondary" ? secondaryStyles : ""} ${variation === "red" ? redStyles : ""}`}
       onClick={(e) => onClick?.(e)}
+      disabled={isLoading}
     >
       {children}
+      {isLoading && <div className="loading loading-spinner w-3"></div>}
     </button>
   );
 }

@@ -3,12 +3,14 @@ import Button from "../../ui/Button";
 import InputField from "../../ui/InputField";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useLogin } from "./useLogin";
 
 function LoginForm() {
   const { register, handleSubmit } = useForm();
+  const { login, isLoading } = useLogin();
 
-  function onSubmit(data) {
-    console.log(data);
+  async function onSubmit({ email, password }) {
+    login({ email, password });
   }
 
   function onError(errors) {
@@ -19,8 +21,8 @@ function LoginForm() {
   }
 
   return (
-    <div className="flex w-1/2 max-w-[800px] overflow-hidden rounded md:max-w-md md:flex-col-reverse lg:w-4/5">
-      <div className="relative flex w-1/2 items-center justify-center px-6 text-center text-3xl font-normal sm:text-2xl md:w-full md:py-10">
+    <div className="flex w-1/2 max-w-[800px] overflow-hidden rounded lg:w-4/5 md:max-w-md md:flex-col-reverse">
+      <div className="relative flex w-1/2 items-center justify-center px-6 text-center text-3xl font-normal md:w-full md:py-10 sm:text-2xl">
         <img
           src="/images/cat-looking-outside.jpg"
           alt="Cat background image"
@@ -37,29 +39,22 @@ function LoginForm() {
           </Link>
         </p>
       </div>
-      <div className="w-1/2 bg-paleGreen px-10 py-12 text-brown sm:px-8 sm:pt-8 md:w-full dark:bg-chocolateBrown dark:text-background">
+      <div className="w-1/2 bg-paleGreen px-10 py-12 text-brown md:w-full sm:px-8 sm:pt-8 dark:bg-chocolateBrown dark:text-background">
         <h1 className="text-center text-3xl font-bold sm:text-2xl">ورود</h1>
         <form
           className="mt-8 flex flex-col gap-5"
           onSubmit={handleSubmit(onSubmit, onError)}
         >
           <InputField
-            id="user"
-            label="شماره تلفن یا ایمیل"
-            type="text"
+            id="email"
+            label="ایمیل"
+            type="email"
             register={register}
             validationRules={{
-              required: "شماره تلفن یا ایمیل خود را وارد کنید",
-              validate: {
-                isEmailOrPhone: (value) => {
-                  const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-                  const isPhoneNumber = /^09\d{9}$/.test(value);
-                  return (
-                    isEmail ||
-                    isPhoneNumber ||
-                    "شماره تلفن یا ایمیل خود را درست وارد کنید"
-                  );
-                },
+              required: "ایمیل خود را وارد کنید",
+              pattern: {
+                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                message: "ایمیل خود را درست وارد کنید",
               },
             }}
           />
@@ -83,6 +78,7 @@ function LoginForm() {
             type="submit"
             variation="primary"
             additionalStyles="w-full mt-2"
+            isLoading={isLoading}
           >
             ورود
           </Button>
