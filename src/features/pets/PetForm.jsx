@@ -7,29 +7,39 @@ import InputSelect from "../../ui/InputSelect";
 import InputTextarea from "../../ui/InputTextArea";
 import toast from "react-hot-toast";
 import { useDarkMode } from "../../contexts/DarkModeContext";
+import { useAddPet } from "./useAddPet";
+import { useEditPet } from "./useEditPet";
 
 function PetForm({ title, pet, petOperation = "add" }) {
   const { isDarkMode } = useDarkMode();
+  const { addPet, isLoading: isAdding } = useAddPet();
+  const { editPet, isLoading: isEditing } = useEditPet();
 
   // petOperation is either edit or add
   const { register, handleSubmit } = useForm({
     defaultValues: {
-      petType: pet?.petType,
-      petName: pet?.petName,
-      petGender: pet?.petGender,
-      petRace: pet?.petRace,
-      petBirthYear: pet?.petBirthYear,
-      petVaccinationCount: pet?.petVaccinationCount,
-      petDisease: pet?.petDisease,
-      petFeed: pet?.petFeed,
-      petImage: pet?.petImage,
-      petDescription: pet?.petDescription,
-      isPetSterile: pet?.isPetSterile,
+      type: pet?.type,
+      name: pet?.name,
+      gender: pet?.gender,
+      race: pet?.race,
+      birthYear: pet?.birthYear,
+      vaccinationCount: pet?.vaccinationCount,
+      disease: pet?.disease,
+      image: pet?.image,
+      feed: pet?.feed,
+      description: pet?.description,
+      isSterile: pet?.isSterile,
     },
   });
 
   function onSubmit(data) {
-    console.log(data);
+    if (petOperation === "add") addPet({ ...data, image: data?.image[0] });
+    if (petOperation === "edit")
+      editPet({
+        ...data,
+        id: pet.id,
+        image: typeof data.image === "string" ? data.image : data.image[0],
+      });
   }
 
   function onError(errors) {
@@ -47,33 +57,33 @@ function PetForm({ title, pet, petOperation = "add" }) {
         onSubmit={handleSubmit(onSubmit, onError)}
       >
         <InputSelect
-          id="petType"
+          id="type"
           label="نوع پت*"
           options={["سگ", "گربه", "طوطی"]}
           register={register}
         />
         <InputField
-          id="petName"
+          id="name"
           label="اسم پت*"
           type="text"
           register={register}
           validationRules={{ required: "اسم پت خود را وارد کنید" }}
         />
         <InputSelect
-          id="petGender"
+          id="gender"
           label="جنس پت*"
           options={["نر", "ماده"]}
           register={register}
         />
         <InputField
-          id="petRace"
+          id="race"
           label="نژاد پت*"
           type="text"
           register={register}
           validationRules={{ required: "نژاد پت خود را وارد کنید" }}
         />
         <InputField
-          id="petBirthYear"
+          id="birthYear"
           label="سال تولد پت*"
           type="number"
           register={register}
@@ -87,7 +97,7 @@ function PetForm({ title, pet, petOperation = "add" }) {
           }}
         />
         <InputField
-          id="petVaccinationCount"
+          id="vaccinationCount"
           label="تعداد واکسناسیون پت*"
           type="number"
           register={register}
@@ -95,57 +105,43 @@ function PetForm({ title, pet, petOperation = "add" }) {
             required: "تعداد واکسناسیون پت خود را وارد کنید",
             min: {
               value: 0,
-              message: "تعداد واکسناسیون نمی تواند منفی باشد",
+              message: "تعداد واکسناسیون نمی‌تواند منفی باشد",
             },
             max: {
               value: 50,
-              message: "تعداد واکسناسیون نمی تواند بیشتر از 50 باشد",
+              message: "تعداد واکسناسیون نمی‌تواند بیشتر از 50 باشد",
             },
             valueAsNumber: true,
             validate: {
               isInteger: (value) =>
-                Number.isInteger(value) || "تعداد واکسناسیون باید یک عدد باشد",
+                Number.isInteger(value) ||
+                "تعداد واکسناسیون باید یک عدد صحیح باشد",
             },
           }}
         />
-        <InputTextarea id="petDisease" label="بیماری" register={register} />
-        <InputTextarea id="petFeed" label="تغذیه" register={register} />
+        <InputTextarea id="disease" label="بیماری" register={register} />
+        <InputTextarea id="feed" label="تغذیه" register={register} />
         <InputField
-          id="petImage"
+          id="image"
           label="آپلود عکس پت"
           type="file"
           accept=".png, .jpg, .jpeg"
           register={register}
           validationRules={{
-            validate: {
-              acceptedFormats: (files) => {
-                if (!files.length) return true; // No file selected, validation passes
-                return (
-                  ["image/png", "image/jpeg", "image/jpg"].includes(
-                    files[0]?.type,
-                  ) || "فرمت فایل باید png، jpg یا jpeg باشد"
-                );
-              },
-            },
+            required:
+              petOperation === "edit" ? false : "یک عکس از پت آپلود کنید",
           }}
         />
-        <InputTextarea
-          id="petDescription"
-          label="توضیحات"
-          register={register}
-        />
+        <InputTextarea id="description" label="توضیحات" register={register} />
         <div className="mt-7 self-start">
-          <InputCheckbox
-            id="isPetSterile"
-            label="عقیم است؟"
-            register={register}
-          />
+          <InputCheckbox id="isSterile" label="عقیم است؟" register={register} />
         </div>
         <div className="col-span-3 mr-auto mt-6 gap-3 md:col-span-2 sm:col-span-1">
           <Button
             additionalStyles="flex items-center justify-center gap-2 py-2.5 sm:py-1.5"
             type="submit"
             variation="primary"
+            isLoading={isAdding || isEditing}
           >
             {isDarkMode ? (
               <img src="/icons/add-dark-icon.svg" className="w-5" />

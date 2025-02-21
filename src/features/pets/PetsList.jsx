@@ -1,56 +1,29 @@
+import toast from "react-hot-toast";
 import PetItem from "./PetItem";
-
-const petsData = [
-  {
-    petId: 1,
-    petImgUrl: "/images/placeholder-pet1.jpg",
-    petType: "سگ",
-    petName: "جسی",
-    petBirthYear: 1398,
-    petRace: "شپرد استرالیایی",
-    petGender: "ماده",
-    isPetSterile: true,
-    petDisease:
-      "جسی دچار حساسیت های پوستی شده است و نیاز به مراقبت های ویژه دارد.",
-    petDescription:
-      "جسی یک سگ شاد و فعال است که عاشق بازی کردن و دویدن است. او به راحتی با سایر حیوانات خانگی و کودکان سازگار می‌شود.",
-  },
-  {
-    petId: 2,
-    petImgUrl: "/images/placeholder-pet2.jpg",
-    petType: "گربه",
-    petName: "ملی",
-    petBirthYear: 1400,
-    petRace: "پرشین",
-    petGender: "نر",
-    isPetSterile: false,
-    petDisease:
-      "ملی به کم کاری تیروئید مبتلا است و نیاز به مصرف داروهای منظم دارد.",
-    petDescription:
-      "ملی یک گربه آرام و دوست داشتنی است که بیشتر اوقات خود را به استراحت و خواب می‌گذراند. او عاشق نوازش شدن و خوابیدن در کنار شما است.",
-  },
-  {
-    petId: 3,
-    petImgUrl: "/images/placeholder-pet3.jpg",
-    petType: "طوطی",
-    petName: "پیکو",
-    petBirthYear: 1401,
-    petRace: "ماکائو",
-    petGender: "ماده",
-    isPetSterile: false,
-    petDisease:
-      "پیکو در گذشته دچار شکستگی بال شده و بهبودی یافته است، اما نیاز به مراقبت های ویژه دارد.",
-    petDescription:
-      "پیکو یک طوطی باهوش و اجتماعی است که عاشق صحبت کردن و تقلید صداها است. او از بازی با اسباب بازی های رنگارنگ لذت می‌برد.",
-  },
-];
+import { usePets } from "./usePets";
 
 function PetsList() {
+  const { pets, isLoading, error } = usePets();
+
+  const sortedTasks = pets?.sort((a, b) => {
+    return new Date(b.createdAt) - new Date(a.createdAt);
+  });
+
+  if (error) toast.error("خطایی در دریافت پت ها به وجود آمده است");
+
   return (
     <div className="mt-10 flex flex-col gap-8 lg:flex-row lg:flex-wrap md:justify-center">
-      {petsData.map((pet) => (
-        <PetItem pet={pet} key={pet.petId} />
-      ))}
+      {isLoading ? (
+        <div className="mt-10 text-center text-3xl font-bold text-brown">
+          دریافت پت ها...
+        </div>
+      ) : sortedTasks?.length !== 0 ? (
+        sortedTasks?.map((pet) => <PetItem pet={pet} key={pet.id} />)
+      ) : (
+        <div className="mt-10 text-center text-3xl font-bold text-brown">
+          اولین پت خود را اضافه کنید!
+        </div>
+      )}
     </div>
   );
 }
