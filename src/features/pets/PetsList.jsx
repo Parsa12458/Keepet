@@ -14,13 +14,13 @@ function PetsList() {
   return (
     <div className="mt-10 flex flex-col gap-8 lg:flex-row lg:flex-wrap md:justify-center">
       {isLoading ? (
-        <div className="mt-10 text-center text-3xl font-bold text-brown">
+        <div className="mt-10 text-center text-3xl font-bold text-brown dark:text-white">
           دریافت پت ها...
         </div>
       ) : sortedTasks?.length !== 0 ? (
         sortedTasks?.map((pet) => <PetItem pet={pet} key={pet.id} />)
       ) : (
-        <div className="mt-10 text-center text-3xl font-bold text-brown">
+        <div className="mt-10 text-center text-3xl font-bold text-brown dark:text-white">
           اولین پت خود را اضافه کنید!
         </div>
       )}

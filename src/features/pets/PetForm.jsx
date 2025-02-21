@@ -9,11 +9,13 @@ import toast from "react-hot-toast";
 import { useDarkMode } from "../../contexts/DarkModeContext";
 import { useAddPet } from "./useAddPet";
 import { useEditPet } from "./useEditPet";
+import { usePets } from "./usePets";
 
 function PetForm({ title, pet, petOperation = "add" }) {
   const { isDarkMode } = useDarkMode();
   const { addPet, isLoading: isAdding } = useAddPet();
   const { editPet, isLoading: isEditing } = useEditPet();
+  const { pets } = usePets();
 
   // petOperation is either edit or add
   const { register, handleSubmit } = useForm({
@@ -67,7 +69,14 @@ function PetForm({ title, pet, petOperation = "add" }) {
           label="اسم پت*"
           type="text"
           register={register}
-          validationRules={{ required: "اسم پت خود را وارد کنید" }}
+          validationRules={{
+            required: "اسم پت خود را وارد کنید",
+            validate: {
+              uniqueName: (value) =>
+                !pets.map((pet) => pet.name).includes(value) ||
+                "این نام قبلا استفاده شده است",
+            },
+          }}
         />
         <InputSelect
           id="gender"

@@ -7,22 +7,53 @@ import InputTextarea from "../../ui/InputTextArea";
 import { toPersianDate } from "../../utils/helper";
 import toast from "react-hot-toast";
 import { useDarkMode } from "../../contexts/DarkModeContext";
+import { useAddRequest } from "./useAddRequest";
+import { usePets } from "../pets/usePets";
+import { useEditRequest } from "./useEditRequest";
+import { useEffect } from "react";
 
 function RequestForm({ title, request, requestOperation }) {
   const { isDarkMode } = useDarkMode();
-
-  const { register, handleSubmit } = useForm({
+  const { pets, isLoading, error } = usePets();
+  const { addRequest, isLoading: isAdding } = useAddRequest();
+  const { editRequest, isLoading: isEditing } = useEditRequest();
+  const { register, handleSubmit, setValue } = useForm({
     defaultValues: {
-      requestSelectedPet: request?.requestSelectedPet.petName,
-      requestStartDate: request?.requestStartDate,
-      requestEndDate: request?.requestEndDate,
-      requestLocation: request?.requestLocation,
-      requestDescription: request?.requestDescription,
+      selectedPet: request?.selectedPet.name,
+      startDate: request?.startDate,
+      endDate: request?.endDate,
+      location: request?.location,
+      description: request?.description,
     },
   });
 
+  useEffect(() => {
+    if (!isLoading && pets?.length > 0) {
+      setValue("selectedPet", request?.selectedPet.name || pets[0]?.name);
+    }
+  }, [isLoading, pets, setValue, request?.selectedPet.name]);
+
   function onSubmit(data) {
-    console.log(data);
+    const selectedPetObj = pets.find((pet) => data.selectedPet === pet.name);
+    if (requestOperation === "add")
+      addRequest({
+        ...data,
+        selectedPet: {
+          id: selectedPetObj.id,
+          name: selectedPetObj.name,
+          image: selectedPetObj.image,
+        },
+      });
+    if (requestOperation === "edit")
+      editRequest({
+        ...data,
+        id: request.id,
+        selectedPet: {
+          id: selectedPetObj.id,
+          name: selectedPetObj.name,
+          image: selectedPetObj.image,
+        },
+      });
   }
 
   function onError(errors) {
@@ -32,6 +63,8 @@ function RequestForm({ title, request, requestOperation }) {
     });
   }
 
+  if (error) throw new Error("خطایی پیش آمده! دوباره تلاش کنید.");
+
   return (
     <div className="text-brown dark:text-background">
       <h2 className="mb-7 text-2xl font-bold sm:text-xl">{title}</h2>
@@ -40,13 +73,15 @@ function RequestForm({ title, request, requestOperation }) {
         onSubmit={handleSubmit(onSubmit, onError)}
       >
         <InputSelect
-          id="requestSelectedPet"
+          id="selectedPet"
           label="پت خود را انتخاب کنید*"
-          options={["پیکو", "جسی", "ملی"]}
+          options={isLoading ? ["بارگذاری..."] : pets?.map((pet) => pet?.name)}
           register={register}
+          validationRules={{ required: "یک پت را انتخاب کنید" }}
+          disabled={isLoading}
         />
         <InputField
-          id="requestStartDate"
+          id="startDate"
           label="تاریخ شروع درخواست*"
           type="text"
           placeholder={`مثال: ${toPersianDate(new Date())}`}
@@ -61,10 +96,12 @@ function RequestForm({ title, request, requestOperation }) {
           }}
         />
         <InputField
-          id="requestEndDate"
+          id="endDate"
           label="تاریخ پایان درخواست*"
           type="text"
-          placeholder={`مثال: ${toPersianDate(new Date().setDate(new Date().getDate() + 3))}`}
+          placeholder={`مثال: ${toPersianDate(
+            new Date().setDate(new Date().getDate() + 3),
+          )}`}
           register={register}
           validationRules={{
             required: "تاریخ پایان درخواست را وارد کنید",
@@ -76,24 +113,21 @@ function RequestForm({ title, request, requestOperation }) {
           }}
         />
         <InputTextarea
-          id="requestLocation"
+          id="location"
           label="آدرس*"
           register={register}
           validationRules={{
             required: "آدرس خود را وارد کنید",
           }}
         />
-        <InputTextarea
-          id="requestDescription"
-          label="توضیحات"
-          register={register}
-        />
+        <InputTextarea id="description" label="توضیحات" register={register} />
 
         <div className="col-span-3 mr-auto mt-6 gap-3 md:col-span-2 sm:col-span-1">
           <Button
             additionalStyles="flex items-center justify-center gap-2 py-2.5 sm:py-1.5"
             type="submit"
             variation="primary"
+            isLoading={isAdding || isEditing}
           >
             {isDarkMode ? (
               <img src="/icons/add-dark-icon.svg" className="w-5" />

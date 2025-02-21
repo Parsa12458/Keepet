@@ -1,62 +1,31 @@
+import toast from "react-hot-toast";
 import RequestItem from "./RequestItem";
-
-const requestsData = [
-  {
-    requestId: 1,
-    requestSelectedPet: {
-      petId: 2,
-      petName: "ملی",
-    },
-    requestLocation: "آزادگان، بلوار امام رضا، اردلان 4، پلاک 111",
-    requestStartDate: "16 دی 1403",
-    requestEndDate: "19 دی 1403",
-    requestDescription: "",
-    requestStatus: "inProgress", // inProgress, approved, rejected
-  },
-  {
-    requestId: 2,
-    requestSelectedPet: {
-      petId: 2,
-      petName: "ملی",
-    },
-    requestLocation: "کرج، چهارراه طالقانی، خیابان آزادی، پلاک 12",
-    requestStartDate: "18 دی 1403",
-    requestEndDate: "22 دی 1403",
-    requestDescription: "",
-    requestStatus: "approved",
-  },
-  {
-    requestId: 2,
-    requestSelectedPet: {
-      petId: 2,
-      petName: "ملی",
-    },
-    requestLocation: "کرج، چهارراه طالقانی، خیابان آزادی، پلاک 12",
-    requestStartDate: "18 دی 1403",
-    requestEndDate: "22 دی 1403",
-    requestDescription: "",
-    requestStatus: "approved",
-  },
-  {
-    requestId: 2,
-    requestSelectedPet: {
-      petId: 2,
-      petName: "ملی",
-    },
-    requestLocation: "کرج، چهارراه طالقانی، خیابان آزادی، پلاک 12",
-    requestStartDate: "18 دی 1403",
-    requestEndDate: "22 دی 1403",
-    requestDescription: "",
-    requestStatus: "approved",
-  },
-];
+import { useRequests } from "./useRequests";
 
 function RequestsList() {
+  const { requests, isLoading, error } = useRequests();
+
+  const sortedRequests = requests?.sort((a, b) => {
+    return new Date(b.createdAt) - new Date(a.createdAt);
+  });
+
+  if (error) toast.error("خطایی در دریافت درخواست ها به وجود آمده است");
+
   return (
     <div className="mt-10 flex flex-wrap gap-8 md:justify-center">
-      {requestsData.map((request) => (
-        <RequestItem request={request} key={request.requestId} />
-      ))}
+      {isLoading ? (
+        <div className="mt-10 w-full text-center text-3xl font-bold text-brown dark:text-white">
+          دریافت درخواست ها...
+        </div>
+      ) : sortedRequests?.length !== 0 ? (
+        sortedRequests?.map((request) => (
+          <RequestItem request={request} key={request.id} />
+        ))
+      ) : (
+        <div className="mt-10 w-full text-center text-3xl font-bold text-brown dark:text-white">
+          اولین درخواست خود را ثبت کنید!
+        </div>
+      )}
     </div>
   );
 }

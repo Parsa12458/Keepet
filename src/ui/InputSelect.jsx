@@ -1,6 +1,13 @@
 import { useDarkMode } from "../contexts/DarkModeContext";
 
-function InputSelect({ id, label, options, register, validationRules }) {
+function InputSelect({
+  id,
+  label,
+  options,
+  register,
+  validationRules,
+  disabled = false,
+}) {
   const { isDarkMode } = useDarkMode();
   return (
     <div className="flex flex-col gap-0.5">
@@ -13,8 +20,9 @@ function InputSelect({ id, label, options, register, validationRules }) {
           id={id}
           className={`w-full cursor-pointer appearance-none rounded border border-brown bg-transparent px-2 py-1.5 text-sm font-medium text-brown focus:outline-none sm:py-1 dark:border-background dark:text-background`}
           {...(register && register(id, validationRules))}
+          disabled={disabled}
         >
-          {options.map((option, i) => (
+          {options?.map((option, i) => (
             <option
               value={option}
               key={i}

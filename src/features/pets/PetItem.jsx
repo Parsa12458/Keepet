@@ -3,6 +3,7 @@ import { useDarkMode } from "../../contexts/DarkModeContext";
 import Button from "../../ui/Button";
 import Modal from "../../ui/Modal";
 import { calculateAge, truncateText } from "../../utils/helper";
+import RequestForm from "../requests/RequestForm";
 import PetForm from "./PetForm";
 import { useDeletePet } from "./useDeletePet";
 
@@ -58,18 +59,29 @@ function PetItem({ pet }) {
         </div>
       </div>
       <div className="mr-auto flex flex-col items-center justify-center gap-2 lg:mr-0 lg:mt-auto">
-        <Button
-          variation="primary"
-          type="button"
-          additionalStyles="flex w-36 h-9 items-center justify-center gap-2 text-xs"
-        >
-          {isDarkMode ? (
-            <img src="/icons/add-envelope-dark-icon.svg" className="w-4" />
-          ) : (
-            <img src="/icons/add-envelope-icon.svg" className="w-4" />
-          )}
-          <span>ارسال درخواست</span>
-        </Button>
+        <Modal>
+          <Modal.Open opens="addRequest">
+            <Button
+              variation="primary"
+              type="button"
+              additionalStyles="flex w-36 h-9 items-center justify-center gap-2 text-xs"
+            >
+              {isDarkMode ? (
+                <img src="/icons/add-envelope-dark-icon.svg" className="w-4" />
+              ) : (
+                <img src="/icons/add-envelope-icon.svg" className="w-4" />
+              )}
+              <span>ارسال درخواست</span>
+            </Button>
+          </Modal.Open>
+          <Modal.Window name="addRequest">
+            <RequestForm
+              title="فرم زیر را تکمیل کنید."
+              requestOperation="add"
+              request={{ selectedPet: { name: pet.name } }}
+            />
+          </Modal.Window>
+        </Modal>
         <Modal>
           <Modal.Open opens="editPet">
             <Button

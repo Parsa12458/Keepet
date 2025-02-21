@@ -4,33 +4,33 @@ import Button from "../../ui/Button";
 import Modal from "../../ui/Modal";
 import { truncateText } from "../../utils/helper";
 import RequestForm from "./RequestForm";
+import { useDeleteRequest } from "./useDeleteRequest";
 
 function RequestItem({ request }) {
   const { isDarkMode } = useDarkMode();
+  const { deleteRequest, isLoading: isDeleting } = useDeleteRequest();
 
-  const requestStatusStr =
-    request.requestStatus === "inProgress"
+  const statusStr =
+    request.status === "inProgress"
       ? "در حال بررسی"
-      : request.requestStatus === "approved"
+      : request.status === "approved"
         ? "تایید شده"
         : "رد شده";
 
   return (
     <div
-      key={request.requestId}
+      key={request.id}
       className="flex w-80 flex-col items-center justify-start gap-10 rounded bg-paleGreen p-7 sm:w-full sm:max-w-72 dark:bg-chocolateBrown dark:text-background"
     >
       <div className="relative h-36 w-48 shrink-0 overflow-hidden rounded border-[10px] border-background outline outline-[6px] outline-brown sm:h-32 sm:w-44">
         <img
-          src="/images/placeholder-pet2.jpg"
-          alt={request.requestSelectedPet.petName}
+          src={request.selectedPet.image}
+          alt={request.selectedPet.name}
           className="h-full w-full rounded-md object-cover"
         />
-        <div className="absolute bottom-0 left-0 right-0 top-0 rounded-md bg-black/50">
-          &nbsp;
-        </div>
+        <div className="absolute inset-0 rounded-md bg-black/50"></div>
         <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-3xl font-medium text-white">
-          {request.requestSelectedPet.petName}
+          {request.selectedPet.name}
         </span>
       </div>
 
@@ -41,7 +41,7 @@ function RequestItem({ request }) {
           ) : (
             <img src="/icons/location-icon.svg" className="w-4" />
           )}
-          <span>مکان: {truncateText(request.requestLocation, 30)}</span>
+          <span>مکان: {truncateText(request.location, 30)}</span>
         </div>
         <div className="flex items-start gap-1">
           {isDarkMode ? (
@@ -49,7 +49,7 @@ function RequestItem({ request }) {
           ) : (
             <img src="/icons/calendar-range-icon.svg" className="w-5" />
           )}
-          <span>تاریخ شروع: {request.requestStartDate}</span>
+          <span>تاریخ شروع: {request.startDate}</span>
         </div>
         <div className="flex items-start gap-1">
           {isDarkMode ? (
@@ -57,17 +57,17 @@ function RequestItem({ request }) {
           ) : (
             <img src="/icons/calendar-range-icon.svg" className="w-5" />
           )}
-          <span>تاریخ پایان: {request.requestEndDate}</span>
+          <span>تاریخ پایان: {request.endDate}</span>
         </div>
         <div className="flex items-start gap-1.5">
           <span className="mt-0.5 h-4 w-4 rounded-full bg-brown dark:bg-background"></span>
-          <span>وضعیت درخواست: {requestStatusStr}</span>
+          <span>وضعیت درخواست: {statusStr}</span>
         </div>
       </div>
 
       <div className="space-y-2">
         <Modal>
-          <Modal.Open opens="editPet">
+          <Modal.Open opens="editRequest">
             <Button
               variation="secondary"
               type="button"
@@ -77,9 +77,9 @@ function RequestItem({ request }) {
               <span>ویرایش اطلاعات</span>
             </Button>
           </Modal.Open>
-          <Modal.Window name="editPet">
+          <Modal.Window name="editRequest">
             <RequestForm
-              title={`ویرایش درخواست تاریخ ${request.requestStartDate}`}
+              title={`ویرایش درخواست تاریخ ${request.startDate}`}
               request={request}
               requestOperation="edit"
             />
@@ -90,6 +90,8 @@ function RequestItem({ request }) {
           variation="red"
           type="button"
           additionalStyles="flex w-36 h-9 items-center justify-center gap-1 text-xs"
+          onClick={() => deleteRequest(request.id)}
+          isLoading={isDeleting}
         >
           <img src="/icons/bin-icon.svg" className="w-5 translate-y-[-1px]" />
           <span>لغو درخواست</span>
