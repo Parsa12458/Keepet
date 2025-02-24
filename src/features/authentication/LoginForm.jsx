@@ -9,7 +9,7 @@ function LoginForm() {
   const { register, handleSubmit } = useForm();
   const { login, isLoading } = useLogin();
 
-  async function onSubmit({ email, password }) {
+  function onSubmit({ email, password }) {
     login({ email, password });
   }
 

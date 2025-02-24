@@ -9,7 +9,7 @@ function SignupForm() {
   const { register, handleSubmit } = useForm();
   const { signup, isLoading } = useSignup();
 
-  async function onSubmit({ fullName, email, phoneNumber, password }) {
+  function onSubmit({ fullName, email, phoneNumber, password }) {
     signup({ fullName, email, phoneNumber, password });
   }
 

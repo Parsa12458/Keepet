@@ -39,3 +39,12 @@ export async function logout() {
   const { error } = await supabase.auth.signOut();
   if (error) throw new Error(error.message);
 }
+
+export async function updateUser({ fullName, email, phoneNumber }) {
+  const { data, error } = await supabase.auth.updateUser({
+    email,
+    data: { fullName, phoneNumber },
+  });
+  if (error) throw new Error(error.message);
+  return data;
+}

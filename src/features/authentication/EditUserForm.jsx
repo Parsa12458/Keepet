@@ -2,12 +2,22 @@ import { useForm } from "react-hook-form";
 import InputField from "../../ui/InputField";
 import toast from "react-hot-toast";
 import Button from "../../ui/Button";
+import { queryClient } from "../../App";
+import { useUpdateUser } from "./useUpdateUser";
 
 function EditUserForm() {
-  const { register, handleSubmit } = useForm();
+  const user = queryClient.getQueryData(["user"]);
+  const { updateUser, isLoading } = useUpdateUser();
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      fullName: user?.user_metadata?.fullName,
+      email: user?.email,
+      phoneNumber: user?.user_metadata?.phoneNumber,
+    },
+  });
 
-  function onSubmit(data) {
-    console.log(data);
+  function onSubmit({ fullName, email, phoneNumber, password }) {
+    updateUser({ fullName, email, phoneNumber, password });
   }
 
   function onError(errors) {
@@ -32,6 +42,7 @@ function EditUserForm() {
           type="text"
           register={register}
           validationRules={{ required: "نام و نام خانوادگی را وارد کنید" }}
+          autoComplete="off"
         />
         <InputField
           id="email"
@@ -45,6 +56,8 @@ function EditUserForm() {
               message: "ایمیل خود را درست وارد کنید",
             },
           }}
+          autoComplete="off"
+          disabled={true}
         />
         <InputField
           id="phoneNumber"
@@ -59,22 +72,15 @@ function EditUserForm() {
               message: "شماره تلفن خود را درست وارد کنید",
             },
           }}
-        />
-        <InputField
-          id="password"
-          label="رمز عبور"
-          type="password"
-          register={register}
-          validationRules={{
-            required: "رمز عبور مورد نظر خود را وارد کنید",
-            minLength: {
-              value: 8,
-              message: "رمز عبور باید حداقل دارای 8 کارکتر باشد",
-            },
-          }}
+          autoComplete="off"
         />
         <div className="col-span-2 mr-auto mt-6 gap-3 sm:col-span-1">
-          <Button type="submit" variation="primary" additionalStyles="!px-10">
+          <Button
+            type="submit"
+            variation="primary"
+            additionalStyles="!px-10"
+            isLoading={isLoading}
+          >
             تایید
           </Button>
         </div>
