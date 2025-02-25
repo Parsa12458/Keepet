@@ -88,11 +88,6 @@ function RequestForm({ title, request, requestOperation }) {
           register={register}
           validationRules={{
             required: "تاریخ شروع درخواست را وارد کنید",
-            pattern: {
-              value:
-                /^(\d{1,2}) (فروردین|اردیبهشت|خرداد|تیر|مرداد|شهریور|مهر|آبان|آذر|دی|بهمن|اسفند) (\d{4})$/,
-              message: `فرمت تاریخ باید به شکل 'روز ماه سال' باشد. مثال: ${toPersianDate(new Date())}`,
-            },
           }}
         />
         <InputField
@@ -105,11 +100,6 @@ function RequestForm({ title, request, requestOperation }) {
           register={register}
           validationRules={{
             required: "تاریخ پایان درخواست را وارد کنید",
-            pattern: {
-              value:
-                /^(\d{1,2}) (فروردین|اردیبهشت|خرداد|تیر|مرداد|شهریور|مهر|آبان|آذر|دی|بهمن|اسفند) (\d{4})$/,
-              message: `فرمت تاریخ باید به شکل 'روز ماه سال' باشد. مثال: ${toPersianDate(new Date())}`,
-            },
           }}
         />
         <InputTextarea

@@ -35,7 +35,7 @@ export async function addPet(newPet) {
     .from("petsImage")
     .upload(imageName, newPet.image);
 
-  // 3. Delete the cabin if there was an error uploading image
+  // 3. Delete the pet if there was an error uploading image
   if (storageError) {
     await supabase
       .from("pets")
@@ -79,7 +79,7 @@ export async function editPet(newPet) {
     .from("petsImage")
     .upload(imageName, newPet.image);
 
-  // 3. Delete the cabin if there was an error uploading image
+  // 3. Delete the pet if there was an error uploading image
   if (storageError) {
     await supabase
       .from("pets")
@@ -96,11 +96,63 @@ export async function editPet(newPet) {
 export async function deletePet(id) {
   const user = queryClient.getQueryData(["user"]);
 
+  // 1. Retrieve the pet's image path from the database
+  const { data: petData, error: petError } = await supabase
+    .from("pets")
+    .select("image")
+    .eq("id", id)
+    .single();
+
+  if (petError) {
+    throw new Error("خطایی در حذف پت به وجود آمده! دوباره تلاش کنید.");
+  }
+
+  const imageUrl = petData?.image;
+
+  // 2. Extract the image path relative to the storage bucket
+  let filePath = null;
+  if (imageUrl) {
+    try {
+      const url = new URL(imageUrl);
+      let pathname = url.pathname; // e.g., '/storage/v1/object/public/petsImage//filename.jpg'
+
+      // Remove '/storage/v1/object/public/petsImage/' from the pathname to get the file path
+      const prefix = "/storage/v1/object/public/petsImage/";
+      if (pathname.startsWith(prefix)) {
+        filePath = pathname.substring(prefix.length); // This gives us the file path within the bucket
+      } else {
+        throw new Error("خطایی در حذف پت به وجود آمده! دوباره تلاش کنید.");
+      }
+
+      // Remove any leading slashes
+      filePath = filePath.replace(/^\/+/, "");
+    } catch (e) {
+      console.error("Error parsing image URL:", e);
+      throw new Error("خطایی در حذف پت به وجود آمده! دوباره تلاش کنید.");
+    }
+  }
+
+  // 3. Delete the pet record from the database
   const { error } = await supabase
     .from("pets")
     .delete()
     .eq("id", id)
-    .or(`userId.eq.${user.id}`);
+    .eq("userId", user.id);
 
-  if (error) throw new Error("خطایی در حذف پت به وجود آمده! دوباره تلاش کنید.");
+  if (error) {
+    throw new Error("خطایی در حذف پت به وجود آمده! دوباره تلاش کنید.");
+  }
+
+  // 4. Delete the image from Supabase Storage
+  if (filePath) {
+    filePath = filePath.replace(/^\/+/, "");
+    const { error: storageError } = await supabase.storage
+      .from("petsImage")
+      .remove([filePath]);
+
+    if (storageError) {
+      console.error(storageError);
+      throw new Error("خطایی در حذف پت به وجود آمده! دوباره تلاش کنید.");
+    }
+  }
 }

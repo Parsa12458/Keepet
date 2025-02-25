@@ -21,7 +21,7 @@ function App() {
         <Toaster
           position="top-center"
           reverseOrder={true}
-          containerClassName="mt-2"
+          containerClassName="mt-2 !fixed"
           toastOptions={{
             className:
               "!pr-4 !max-w-full dark:!bg-chocolateBrown dark:!text-background",
