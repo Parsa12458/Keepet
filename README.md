@@ -1,8 +1,7 @@
-# React + Vite
+# Keepet
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Connecting Pet Owners with Trusted Caregivers
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Keepet** is a platform that bridges the gap between pet owners and caregivers. Our mission is to provide a seamless way for owners to find someone trustworthy to look after their pets when they're unable to. By fostering a community of pet lovers, Keepet ensures that every pet receives the attention and care they deserve.
